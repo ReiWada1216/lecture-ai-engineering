@@ -1,0 +1,35 @@
+name: Python Lint & Test
+
+on:
+  pull_request:
+    branches: [ main ]  # PR時に実行
+  push:
+    branches: [ main ]  # push時にも実行
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: リポジトリをチェックアウト
+      uses: actions/checkout@v3
+
+    -
+         name: Pythonをセットアップ
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: 依存ライブラリをインストール
+      run: |
+        pip install -r day5/requirements.txt
+        pip install pytest flake8 black
+
+    - name: コードフォーマットチェック (black)
+      run: black --check day5/演習2/main.py
+
+    - name: 静的解析 (flake8)
+      run: flake8 day5/演習2/main.py
+
+    - name: 単体テスト (pytest)
+      run: pytest day5/演習2/main.py

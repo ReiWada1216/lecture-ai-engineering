@@ -285,3 +285,10 @@ if __name__ == "__main__":
     # ベースラインとの比較
     baseline_ok = ModelTester.compare_with_baseline(metrics)
     print(f"ベースライン比較: {'合格' if baseline_ok else '不合格'}")
+
+    # main.py内や test_main.py に追加
+
+    def test_model_accuracy_threshold():
+      from main import predict_model
+      accuracy = predict_model()
+      assert accuracy >= 0.7  # または自分のベースライン精度に応じて調整
